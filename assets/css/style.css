@@ -1,6 +1,5 @@
 /* Main style sheet */
 body{
-   
     background: cornflowerblue;
     color:lightskyblue
 }
@@ -13,8 +12,20 @@ header{
 .container{
    font-style: italic;
 }
-.answerEl{
+.answerLi{
+    list-style: none;
+    color:darkorange;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin:10px;
-    height:50px;
+    height:75px;
     background: gainsboro;
+    padding-top: 10px;
+}
+.answerLi:hover{
+    cursor: pointer;
+    background:lightsteelblue;
+    border-top: 1px solid grey;
+}
+.answerEl:active{
+    box-shadow: deepskyblue;
 }

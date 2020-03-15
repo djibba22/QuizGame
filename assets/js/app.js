@@ -12,10 +12,11 @@ instructions.setAttribute("class", "instructions");
 const questionDiv = document.createElement("div");
 questionDiv.setAttribute("id","question-div");
 //area for answers to show up
-const answersDiv = document.createElement("div");
-answersDiv.setAttribute("id","answers-div");
-//build an element for the answer
-let answerEl;
+const answersUl = document.createElement("ul");
+answersUl.setAttribute("id","answers-ul");
+//Begin again button
+const startOver = document.createElement("button");
+startOver.setAttribute("class","btn btn-lg btn-dark");
 
 //Game Object
 const game = {
@@ -79,7 +80,7 @@ const game = {
         if(game.questionIndex < game.questions.length){
             //empty the div
             questionDiv.innerHTML = "";
-            answersDiv.innerHTML = "";
+            answersUl.innerHTML = "";
             //Get the current question
             let currentQuestion = game.questions[game.questionIndex].q;
             console.log(`Current Question is: ${currentQuestion}`);
@@ -91,16 +92,16 @@ const game = {
             for (let index = 0; index < game.questions[game.questionIndex].a.length; index++) {
                 //get the anawer from the array
                 const possibleAnswer = game.questions[game.questionIndex].a[index];
-                answerEl = document.createElement("div");
+                const answerLi = document.createElement("li");
                 //add the text to the div
-                answerEl.textContent = possibleAnswer;
+                answerLi.textContent = possibleAnswer;
                 //add all the needed attributes
-                answerEl.setAttribute("class","answerEl");
-                answerEl.setAttribute("data","data-" + index);
+                answerLi.setAttribute("class","answerLi");
+                answerLi.setAttribute("data", index);
                 //attache the answer to the page
-                answersDiv.appendChild(answerEl)
+                answersUl.appendChild(answerLi)
             }
-            content.appendChild(answersDiv);
+            content.appendChild(answersUl);
           
         }else{
             console.log(`We are past the last question`);
@@ -137,12 +138,32 @@ const game = {
             game.showNextQuestion();
         }  
     },
-    getAnswer:function(event){
+    getAnswer:function(e){
         //get the item we clicked on and check the data attribute
+        if(e.target.matches("li")){
+            console.log("data attribute", e.target.getAttribute("data"));
+            //see if it's the correct anser
+            if(e.target.getAttribute("data") == game.questions[game.questionIndex].c){
+                alert("Correct");
+                //reset the timer
+                game.timer = 10;
+                //move to the next question
+                game.questionIndex++;
+                game.correct++;
+                game.showNextQuestion();
+            }else{
+                alert("Incorrect");
+                 //reset the timer
+                game.timer = 10;
+                //move to the next question
+                game.questionIndex++;
+                game.showNextQuestion();   
+            }
+        } 
     }
 }
 //run when the page loads
 game.init();
 // ==== Event Handlers ==== //
 startButton.addEventListener("click",game.startGame);
-answerEl.addEventListener("click", game.getAnswer);
+answersUl.addEventListener("click", game.getAnswer);
