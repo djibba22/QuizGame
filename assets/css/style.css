@@ -1,1 +1,15 @@
 /* Main style sheet */
+body{
+   
+    background: cornflowerblue;
+    color:lightskyblue
+}
+header{
+    padding: 10px ;
+    line-height: 20px;
+    height:100px;
+    background: black;
+}
+.container{
+   font-style: italic;
+}
