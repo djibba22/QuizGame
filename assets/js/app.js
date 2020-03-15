@@ -8,11 +8,14 @@ startButton.textContent = "Let's Do it";
 //initial div on the page
 const instructions = document.createElement("div");
 instructions.setAttribute("class", "instructions");
-//div for question to show up
+//area for question to show up
 const questionDiv = document.createElement("div");
 questionDiv.setAttribute("id","question-div");
-
-
+//area for answers to show up
+const answersDiv = document.createElement("div");
+answersDiv.setAttribute("id","answers-div");
+//build an element for the answer
+let answerEl;
 
 //Game Object
 const game = {
@@ -30,7 +33,7 @@ const game = {
                 "creates a private namespace to avoid potential name clashes between different JavaScript modules and libraries.", "Doesn't matter",
                 "There is no correct answer for this question"
             ],
-            c: "creates a private namespace to avoid potential name clashes between different JavaScript modules and libraries."
+            c: 0
         },
         {
             q: "What are the benefits, of including 'use strict' at the beginning of a JavaScript source file?",
@@ -39,7 +42,7 @@ const game = {
                 "You get the paddle if you get an error",
                 "Enforce stricter parsing and error handling on your JavaScript code at runtime"
             ],
-            c: "Enforce stricter parsing and error handling on your JavaScript code at runtime"
+            c: 2
         },
         {
             q: "What is NaN? What is its type?",
@@ -48,20 +51,24 @@ const game = {
                 "This is what I call my Grandmother",
                 "Nationally Association of No Namers"
             ],
-            c: "a value that is “not a number”,its type is: Number"
+            c: 0
         }
     ],
     init: function () {
-        instructions.textContent = "Beat the timer and Answer the questions \n Click Start to begin";
+        instructions.textContent = "Beat the timer and Answer the questions \n Click Start to begin \n";
         gameEl.appendChild(instructions);
-        gameEl.appendChild(startButton);
+        instructions.appendChild(startButton);
     },
     startGame: function () {
+            game.timer = 10;
+            game.questionIndex = 0;
             console.log(`Game Started`);
+            //hide the instructions
+            instructions.innerHTML = "";
             //start the timer
-             game.timerStart();
+            game.timerStart();
             //Show the next question
-             game.showNextQuestion();
+            game.showNextQuestion();
         
     },
     showNextQuestion: function () {
@@ -70,14 +77,30 @@ const game = {
         console.log(`Total Questions # ${game.questions.length}`);
         //Check to see what question we are on..
         if(game.questionIndex < game.questions.length){
+            //empty the div
+            questionDiv.innerHTML = "";
+            answersDiv.innerHTML = "";
             //Get the current question
             let currentQuestion = game.questions[game.questionIndex].q;
             console.log(`Current Question is: ${currentQuestion}`);
-            
             //Show the question on the page
             questionDiv.innerHTML =  "<h3>"+ currentQuestion + "</h3>";
             let content = document.getElementById("gameArea");
             content.appendChild(questionDiv);
+            //Show the answers on the page
+            for (let index = 0; index < game.questions[game.questionIndex].a.length; index++) {
+                //get the anawer from the array
+                const possibleAnswer = game.questions[game.questionIndex].a[index];
+                answerEl = document.createElement("div");
+                //add the text to the div
+                answerEl.textContent = possibleAnswer;
+                //add all the needed attributes
+                answerEl.setAttribute("class","answerEl");
+                answerEl.setAttribute("data","data-" + index);
+                //attache the answer to the page
+                answersDiv.appendChild(answerEl)
+            }
+            content.appendChild(answersDiv);
           
         }else{
             console.log(`We are past the last question`);
@@ -113,9 +136,13 @@ const game = {
             game.questionIndex++;
             game.showNextQuestion();
         }  
+    },
+    getAnswer:function(event){
+        //get the item we clicked on and check the data attribute
     }
 }
 //run when the page loads
 game.init();
 // ==== Event Handlers ==== //
 startButton.addEventListener("click",game.startGame);
+answerEl.addEventListener("click", game.getAnswer);

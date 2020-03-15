@@ -13,3 +13,8 @@ header{
 .container{
    font-style: italic;
 }
+.answerEl{
+    margin:10px;
+    height:50px;
+    background: gainsboro;
+}
