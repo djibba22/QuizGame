@@ -1,7 +1,8 @@
 /* Main style sheet */
 body{
     background: cornflowerblue;
-    color:lightskyblue
+    color:white;
+    font-size: 35px;
 }
 header{
     padding: 10px ;
@@ -14,18 +15,31 @@ header{
 }
 .answerLi{
     list-style: none;
-    color:darkorange;
+    color:whitesmoke;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin:10px;
     height:75px;
-    background: gainsboro;
-    padding-top: 10px;
+    background: black;
+    padding: 10px;
+    border:solid 1px whitesmoke;
+    font-size: 20px;
+    vertical-align: middle;
 }
 .answerLi:hover{
     cursor: pointer;
-    background:lightsteelblue;
+    color:white;
+    background:lightseagreen;
     border-top: 1px solid grey;
 }
 .answerEl:active{
     box-shadow: deepskyblue;
+}
+#gameArea{
+    margin-top: 50px;
+    background:lightsteelblue;
+    padding: 100px;
+}
+#timer{
+    color:wheat;
+    margin-bottom:10    px;
 }

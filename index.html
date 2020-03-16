@@ -9,19 +9,22 @@
 </head>
 <body>
     <header>
-        <div class="container" text-align="center">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col"><h1>Welcome to: <span style="color: steelblue;font-weight: bold;">QuizzYuh!</span></h1></div>
-                <div class="col" id="timer"></div>
+        <div class="container" >
+            <div class="row" id="row">
+                <div class="col" style="text-align:center;">
+                    <h1 style="color: steelblue;font-weight: bold;">QuizzYuh!</h1>
+                </div>
             </div>
         </div> 
     </header>
     <div class="container">
         <div class="row">
-            <div id="gameArea" class="col-md-8" style="text-align: center;">
-               
+            <div class="col">
+                <h2 id="timer" style="text-align: center;padding-top:20px;"></h2>
             </div>
+        </div>
+        <div class="row">
+            <div id="gameArea" class="col" style="text-align: center;"> </div>
         </div>
     </div>
     <script src="/assets/js/app.js"></script>
